@@ -1,7 +1,10 @@
+import ItemListContainer from "../../containers/ItemListContainer/ItemListContainer";
+
 const Home = () => {
   return (
     <div>
-      <h1>Página Home</h1>
+      <h2>Bienvenido a Mi Tienda</h2>
+      <ItemListContainer />
     </div>
   );
 };
