@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home.jsx";
 import ItemListContainer from "./containers/ItemListContainer/ItemListContainer.jsx";
 import ItemDetailContainer from "./containers/ItemDetailContainer/ItemDetailContainer.jsx";
-import Cart from "./pages/Cart/Cart.jsx";
+import Cart from "./pages/Cart/CartPage.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 import "./App.css";
 
@@ -22,7 +22,7 @@ function App() {
               element={<ItemListContainer />}
             />
             <Route path="/item/:itemId" element={<ItemDetailContainer />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cartpage" element={<CartPage />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
           </Routes>

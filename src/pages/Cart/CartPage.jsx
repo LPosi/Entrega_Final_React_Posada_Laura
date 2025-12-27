@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-import Cart from "../../components/Cart/Cart";
-import "./Cart.css";
+import CartComponent from "../../components/Cart/Cart";
+import "./CartPage.css";
 
-const Cart = () => {
-  const { cart, getTotalItems } = useCart();
+const CartPage = () => {
+  const { cart, getTotalItems, getTotalPrice } = useCart();
   const totalItems = getTotalItems();
 
   if (totalItems === 0) {
@@ -30,7 +30,7 @@ const Cart = () => {
 
       <div className="cart-page-content">
         <div className="cart-items-section">
-          <Cart />
+          <CartComponent />
         </div>
 
         <div className="cart-summary-section">
@@ -38,8 +38,7 @@ const Cart = () => {
             <h3>Resumen del Pedido</h3>
             <div className="summary-row">
               <span>Productos ({totalItems})</span>
-              <span>${getTotalItems() * 10}</span>{" "}
-              {/* Esto debe usar el precio real */}
+              <span>${getTotalPrice().toFixed(2)}</span>
             </div>
             <div className="summary-row">
               <span>Envío</span>
@@ -48,9 +47,7 @@ const Cart = () => {
             <div className="summary-divider"></div>
             <div className="summary-total">
               <span>Total</span>
-              <span className="total-price">
-                ${/* Aquí irá el total real */}
-              </span>
+              <span className="total-price">${getTotalPrice().toFixed(2)}</span>
             </div>
 
             <Link to="/checkout" className="checkout-btn">
@@ -67,4 +64,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartPage;
