@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Item from "./Item";
 import { filterProducts, sortProducts } from "../../utils/ProductUtils";
 import "./ItemList.css";
 
