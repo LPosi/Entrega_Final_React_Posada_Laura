@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar/Navbar";
-import ItemListContainer from "./containers/ItemListContainer/ItemListContainer";
-import ItemDetailContainer from "./containers/ItemDetailContainer/ItemDetailContainer";
-import CartPage from "./pages/CartPage/CartPage";
-import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import Home from "./pages/Home/Home.jsx";
+import ItemListContainer from "./containers/ItemListContainer/ItemListContainer.jsx";
+import ItemDetailContainer from "./containers/ItemDetailContainer/ItemDetailContainer.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 import "./App.css";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
         <Navbar />
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<ItemListContainer />} />
+            <Route path="/" element={<HomePage />} /> {/* Cambiar esta línea */}
             <Route path="/products" element={<ItemListContainer />} />
             <Route
               path="/category/:categoryId"
