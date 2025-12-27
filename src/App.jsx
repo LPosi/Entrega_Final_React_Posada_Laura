@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home.jsx";
 import ItemListContainer from "./containers/ItemListContainer/ItemListContainer.jsx";
 import ItemDetailContainer from "./containers/ItemDetailContainer/ItemDetailContainer.jsx";
-import Cart from "./pages/Cart/CartPage.jsx";
+import CartPage from "./pages/CartPage/CartPage.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 import "./App.css";
 

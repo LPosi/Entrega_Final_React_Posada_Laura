@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { filterProducts, sortProducts } from "../../utils/ProductUtils";
+import Item from "../Item/Item";
 import "./ItemList.css";
 
 const ItemList = ({ products = [] }) => {
