@@ -1,24 +1,86 @@
-import { Link } from "react-router-dom";
-
-const mockProducts = [
-  { id: 1, name: "Producto 1", price: 100 },
-  { id: 2, name: "Producto 2", price: 200 },
-  { id: 3, name: "Producto 3", price: 300 },
-];
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import ItemList from "../../components/ItemList/ItemList";
+import { getProducts, getProductsByCategory } from "../../firebase/services";
+import "./ItemListContainer.css";
 
 const ItemListContainer = () => {
+  const { categoryId } = useParams();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        let data;
+
+        if (categoryId) {
+          data = await getProductsByCategory(categoryId);
+        } else {
+          data = await getProducts();
+        }
+
+        // Agregar datos demo si es necesario
+        const productsWithDemoData = data.map((product) => ({
+          ...product,
+          isNew: Math.random() > 0.7,
+          featured: Math.random() > 0.8,
+          rating: (Math.random() * 2 + 3).toFixed(1), // 3-5 estrellas
+          reviewCount: Math.floor(Math.random() * 100),
+          originalPrice: Math.random() > 0.3 ? null : product.price * 1.5,
+        }));
+
+        setProducts(productsWithDemoData);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError(
+          "Error al cargar los productos. Por favor, intenta nuevamente."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [categoryId]);
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Cargando productos...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <h2>Error</h2>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()} className="retry-btn">
+          Reintentar
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h3>Lista de Productos</h3>
-      <ul>
-        {mockProducts.map((product) => (
-          <li key={product.id}>
-            <Link to={`/item/${product.id}`}>
-              {product.name} - ${product.price}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="item-list-container-page">
+      <div className="container-header">
+        <h1>
+          {categoryId
+            ? `Productos de ${
+                categoryId.charAt(0).toUpperCase() + categoryId.slice(1)
+              }`
+            : "Todos los Productos"}
+        </h1>
+        <p className="subtitle">{products.length} productos disponibles</p>
+      </div>
+
+      <ItemList products={products} />
     </div>
   );
 };
