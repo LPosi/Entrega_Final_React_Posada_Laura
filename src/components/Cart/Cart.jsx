@@ -1,6 +1,6 @@
 import { useCart } from "../../context/CartContext";
 import CartItem from "../CartItem/CartItem";
-import { formatPrice } from "../../utils/productUtils";
+import { formatPrice } from "../../utils/ProductUtils";
 import "./Cart.css";
 
 const Cart = () => {

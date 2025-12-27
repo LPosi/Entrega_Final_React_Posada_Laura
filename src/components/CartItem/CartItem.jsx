@@ -1,7 +1,6 @@
-// src/components/CartItem/CartItem.jsx
 import { useState } from "react";
 import { useCart } from "../../context/CartContext";
-import { formatPrice } from "../../utils/productUtils";
+import { formatPrice } from "../../utils/ProductUtils";
 import "./CartItem.css";
 
 const CartItem = ({ item }) => {
@@ -9,17 +8,14 @@ const CartItem = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const [isRemoving, setIsRemoving] = useState(false);
 
-  // Calcular subtotal
   const subtotal = item.price * item.quantity;
 
-  // Manejar incremento de cantidad
   const handleIncrement = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
     updateQuantity(item.id, newQuantity);
   };
 
-  // Manejar decremento de cantidad
   const handleDecrement = () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
@@ -28,7 +24,6 @@ const CartItem = ({ item }) => {
     }
   };
 
-  // Manejar cambio manual de cantidad
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value) || 1;
     if (newQuantity > 0 && newQuantity <= 100) {
@@ -37,23 +32,20 @@ const CartItem = ({ item }) => {
     }
   };
 
-  // Manejar eliminación del producto
   const handleRemove = () => {
     setIsRemoving(true);
-    // Agregar animación antes de eliminar
+
     setTimeout(() => {
       removeFromCart(item.id);
     }, 300);
   };
 
-  // Obtener clase de stock
   const getStockClass = () => {
     if (item.stock <= 0) return "stock-out";
     if (item.stock <= 5) return "stock-low";
     return "stock-ok";
   };
 
-  // Obtener texto de stock
   const getStockText = () => {
     if (item.stock <= 0) return "Sin stock";
     if (item.stock <= 5) return `Últimas ${item.stock} unidades`;
@@ -62,7 +54,6 @@ const CartItem = ({ item }) => {
 
   return (
     <div className={`cart-item ${isRemoving ? "removing" : ""}`}>
-      {/* Imagen del producto */}
       <div className="cart-item-image">
         <img
           src={item.image || "https://via.placeholder.com/100"}
@@ -74,7 +65,6 @@ const CartItem = ({ item }) => {
         />
       </div>
 
-      {/* Información del producto */}
       <div className="cart-item-info">
         <div className="cart-item-header">
           <h3 className="cart-item-title">
@@ -94,7 +84,6 @@ const CartItem = ({ item }) => {
         </div>
       </div>
 
-      {/* Precio unitario */}
       <div className="cart-item-price">
         <div className="price-label">Precio unitario</div>
         <div className="price-amount">{formatPrice(item.price)}</div>
@@ -105,7 +94,6 @@ const CartItem = ({ item }) => {
         )}
       </div>
 
-      {/* Controles de cantidad */}
       <div className="cart-item-quantity">
         <div className="quantity-label">Cantidad</div>
         <div className="quantity-controls">
@@ -114,9 +102,7 @@ const CartItem = ({ item }) => {
             onClick={handleDecrement}
             disabled={quantity <= 1}
             aria-label="Reducir cantidad"
-          >
-            −
-          </button>
+          ></button>
 
           <input
             type="number"
@@ -146,7 +132,6 @@ const CartItem = ({ item }) => {
         </button>
       </div>
 
-      {/* Subtotal */}
       <div className="cart-item-subtotal">
         <div className="subtotal-label">Subtotal</div>
         <div className="subtotal-amount">{formatPrice(subtotal)}</div>
@@ -155,7 +140,6 @@ const CartItem = ({ item }) => {
         </div>
       </div>
 
-      {/* Botón de eliminación móvil */}
       <div className="cart-item-actions-mobile">
         <button
           className="remove-btn-mobile"

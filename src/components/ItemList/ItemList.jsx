@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Item from "./Item";
-import { filterProducts, sortProducts } from "../../utils/productUtils";
+import { filterProducts, sortProducts } from "../../utils/ProductUtils";
 import "./ItemList.css";
 
 const ItemList = ({ products = [] }) => {
@@ -13,11 +13,9 @@ const ItemList = ({ products = [] }) => {
     searchQuery: "",
   });
 
-  // Aplicar filtros y ordenamiento
   const filteredProducts = filterProducts(products, filters);
   const sortedProducts = sortProducts(filteredProducts, sortBy);
 
-  // Opciones de ordenamiento
   const sortOptions = [
     { value: "default", label: "Recomendados" },
     { value: "price-asc", label: "Precio: menor a mayor" },
@@ -27,7 +25,6 @@ const ItemList = ({ products = [] }) => {
     { value: "newest", label: "Más nuevos primero" },
   ];
 
-  // Manejar cambios en filtros
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({
       ...prev,
@@ -35,7 +32,6 @@ const ItemList = ({ products = [] }) => {
     }));
   };
 
-  // Resetear filtros
   const resetFilters = () => {
     setFilters({
       category: "",
@@ -59,9 +55,7 @@ const ItemList = ({ products = [] }) => {
 
   return (
     <div className="item-list-container">
-      {/* Barra de filtros y ordenamiento */}
       <div className="list-controls">
-        {/* Búsqueda */}
         <div className="search-box">
           <input
             type="text"
@@ -73,7 +67,6 @@ const ItemList = ({ products = [] }) => {
           <span className="search-icon">🔍</span>
         </div>
 
-        {/* Filtros rápidos */}
         <div className="quick-filters">
           <button
             className={`filter-btn ${filters.inStockOnly ? "active" : ""}`}
@@ -120,7 +113,6 @@ const ItemList = ({ products = [] }) => {
           </button>
         </div>
 
-        {/* Ordenamiento */}
         <div className="sort-controls">
           <span className="sort-label">Ordenar por:</span>
           <select
@@ -137,7 +129,6 @@ const ItemList = ({ products = [] }) => {
         </div>
       </div>
 
-      {/* Contador de resultados */}
       <div className="results-info">
         <span className="results-count">
           {sortedProducts.length} de {products.length} productos
@@ -147,7 +138,6 @@ const ItemList = ({ products = [] }) => {
         )}
       </div>
 
-      {/* Lista de productos */}
       {sortedProducts.length > 0 ? (
         <>
           <div className="item-list-grid">
@@ -156,7 +146,6 @@ const ItemList = ({ products = [] }) => {
             ))}
           </div>
 
-          {/* Paginación (simplificada) */}
           <div className="pagination">
             <button className="page-btn" disabled>
               ← Anterior
